@@ -18,7 +18,7 @@ InterpretResult VM::run() {
  
         switch (op.opcode) {
             case OpCode::Constant: {
-                double c = op.vals.at(0);
+                Value c = op.vals.at(0);
                 std::println("{}", c);
                 break; 
             } 

@@ -3,6 +3,7 @@
 
 #include <vector>
 
-using ValueArray = std::vector<double>;
+using Value = double; 
+using ValueArray = std::vector<Value>;
 
 #endif // clox_value_h

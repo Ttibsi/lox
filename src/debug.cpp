@@ -38,6 +38,6 @@ void simpleInstruction(std::string_view name) {
     std::println("{}", name);
 } 
 
-void constantInstruction(std::string_view name, const std::vector<double>& vals) {
+void constantInstruction(std::string_view name, const std::vector<Value>& vals) {
     std::println("{} '{}' ", name, vals);
 } 
