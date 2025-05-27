@@ -24,6 +24,12 @@ InterpretResult VM::run() {
                 stack.push_front(op.vals.at(0)); 
                 break; 
             } 
+            case OpCode::Negate: {
+                Value top = stack.at(0);  
+                stack.pop_front();
+                stack.push_front(-top);
+                break; 
+            } 
             case OpCode::Return: {
                 std::println("{}", stack.at(0));
                 stack.pop_front(); 

@@ -28,6 +28,9 @@ void disasm_instruction(const int idx, const Operation& op, const int prev_linen
         case OpCode::Constant:
             constantInstruction("OP_CONSTANT", op.vals);
             break; 
+        case OpCode::Negate:
+            simpleInstruction("OP_NEGATE"); 
+            break; 
         default:
             std::println("Unknown opcode at idx: {}", idx); 
             break; 
@@ -40,4 +43,4 @@ void simpleInstruction(std::string_view name) {
 
 void constantInstruction(std::string_view name, const std::vector<Value>& vals) {
     std::println("{} '{}' ", name, vals);
-} 
+}

@@ -7,6 +7,7 @@
 
 enum class OpCode {
     Constant, 
+    Negate, 
     Return 
 };
 
