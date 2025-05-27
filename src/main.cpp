@@ -1,7 +1,7 @@
 #include "chunk.h" 
 #include "debug.h" 
 #include "vm.h" 
-
+ 
 int main(int argc, const char* argv[]) {
     VM vm; 
  
@@ -10,7 +10,7 @@ int main(int argc, const char* argv[]) {
     chunk.push_back({OpCode::Constant, {2.4}, 1});
     chunk.push_back({OpCode::Return, {}, 2}); 
 
-    disasm(chunk, "test");
+    //disasm(chunk, "test");
     vm.interpret(&chunk);
  
     return 0; 

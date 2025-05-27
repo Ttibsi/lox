@@ -1,4 +1,5 @@
 #include "vm.h"
+#include "debug.h" 
 
 #include <print> 
 
@@ -10,6 +11,11 @@ InterpretResult VM::interpret(Chunk* chunk) {
 InterpretResult VM::run() {
     for (int idx = 0; idx < stored_chunk->size(); idx++) {
         Operation op = stored_chunk->at(idx); 
+ 
+        if constexpr (DEBUG) {
+            disasm_instruction(idx, op, 0);
+        } 
+ 
         switch (op.opcode) {
             case OpCode::Constant: {
                 double c = op.vals.at(0);

@@ -6,6 +6,8 @@
 
 #include "chunk.h" 
 
+const bool DEBUG = true;
+
 void disasm(const Chunk&, std::string_view);
 void disasm_instruction(const int, const Operation&, const int); 
 
