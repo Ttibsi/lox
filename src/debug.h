@@ -6,9 +6,10 @@
 
 #include "chunk.h" 
 
-void disasm(const Chunk&, const std::string&);
-int disasm_instruction(const Chunk&, int); 
+void disasm(const Chunk&, std::string_view);
+void disasm_instruction(const int, const Operation&, const int); 
 
-int simpleInstruction(std::string_view, int); 
+void simpleInstruction(std::string_view); 
+void constantInstruction(std::string_view, const std::vector<double>&); 
 
 #endif // clox_debug_h 

@@ -3,12 +3,19 @@
 
 #include <vector> 
 
-#include "common.h"
+#include "value.h" 
 
 enum class OpCode {
+    Constant, 
     Return 
 };
 
-using Chunk = std::vector<OpCode>;
+struct Operation {
+    OpCode opcode; 
+    ValueArray vals; 
+    int lineno; 
+}; 
+ 
+using Chunk = std::vector<Operation>;
  
 #endif // clox_chunk_h

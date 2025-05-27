@@ -1,28 +1,43 @@
 #include <print>
+#include <string> 
 
 #include "debug.h"
 
-void disasm(const Chunk& chunk, const std::string& name) {
+void disasm(const Chunk& chunk, std::string_view name) {
     std::println("== {} ==", name);
 
-    for (int offset = 0; offset < chunk.size();) {
-        offset = disasm_instruction(chunk, offset);
+    int prev_lineno = 0; 
+    for (int idx = 0; idx < chunk.size(); idx++) {
+        disasm_instruction(idx, chunk.at(idx), prev_lineno);
+        prev_lineno = chunk.at(idx).lineno; 
     }
 } 
 
-int disasm_instruction(const Chunk& chunk, int offset) {
-    std::print("{:04} ", offset);
-
-    switch(chunk.at(offset)) {
-        case OpCode::Return:
-            return simpleInstruction("OP_RETURN", offset); 
-        default:
-            std::println("Unknown opcode at idx: {}", offset); 
+void disasm_instruction(const int idx, const Operation& op, const int prev_lineno) {
+    std::print("{:03} ", idx);
+    if (idx > 0 && op.lineno == prev_lineno) {
+        std::print(" | ");
+    } else { 
+        std::print("{:03} ", op.lineno);
     } 
- 
+
+    switch(op.opcode) {
+        case OpCode::Return:
+            simpleInstruction("OP_RETURN"); 
+            break; 
+        case OpCode::Constant:
+            constantInstruction("OP_CONSTANT", op.vals);
+            break; 
+        default:
+            std::println("Unknown opcode at idx: {}", idx); 
+            break; 
+    }
 } 
 
-int simpleInstruction(std::string_view name, int offset) {
-    std::println("{}", name); 
-    return ++offset; 
+void simpleInstruction(std::string_view name) {
+    std::println("{}", name);
+} 
+
+void constantInstruction(std::string_view name, const std::vector<double>& vals) {
+    std::println("{} '{}' ", name, vals);
 } 
