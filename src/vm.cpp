@@ -13,16 +13,28 @@ InterpretResult VM::run() {
         Operation op = stored_chunk->at(idx); 
  
         if constexpr (DEBUG) {
+            if (!stack.empty()) {
+                std::println("        [{}]", stack);
+            } 
             disasm_instruction(idx, op, 0);
         } 
  
         switch (op.opcode) {
             case OpCode::Constant: {
-                Value c = op.vals.at(0);
-                std::println("{}", c);
+                stack.push_front(op.vals.at(0)); 
                 break; 
             } 
-            case OpCode::Return: return InterpretResult::OK;
+            case OpCode::Return: {
+                std::println("{}", stack.at(0));
+                stack.pop_front(); 
+                return InterpretResult::OK;
+            } 
         } 
     } 
+    
+    return InterpretResult::OK; 
+} 
+
+void VM::reset_stack() {
+    stack.clear();
 } 

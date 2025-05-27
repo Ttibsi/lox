@@ -3,8 +3,10 @@
 #include "vm.h" 
  
 int main(int argc, const char* argv[]) {
-    VM vm; 
+    (void)argc;
+    (void)argv;
  
+    VM vm; 
     Chunk chunk = {}; 
     chunk.push_back({OpCode::Constant, {1.2}, 1});
     chunk.push_back({OpCode::Constant, {2.4}, 1});
