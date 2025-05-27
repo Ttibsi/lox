@@ -1,6 +1,6 @@
 #include "vm.h"
 #include "debug.h" 
-
+ 
 #include <print> 
 
 InterpretResult VM::interpret(Chunk* chunk) {
@@ -30,6 +30,18 @@ InterpretResult VM::run() {
                 stack.push_front(-top);
                 break; 
             } 
+            case OpCode::Add:
+                bin_op<std::plus<>>();
+                break;
+            case OpCode::Subtract:
+                bin_op<std::minus<>>();
+                break; 
+            case OpCode::Multiply:
+                bin_op<std::multiplies<>>();
+                break;
+            case OpCode::Divide:
+                bin_op<std::divides<>>();
+                break; 
             case OpCode::Return: {
                 std::println("{}", stack.at(0));
                 stack.pop_front(); 

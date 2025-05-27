@@ -31,6 +31,18 @@ void disasm_instruction(const int idx, const Operation& op, const int prev_linen
         case OpCode::Negate:
             simpleInstruction("OP_NEGATE"); 
             break; 
+        case OpCode::Add:
+            simpleInstruction("OP_ADD");
+            break; 
+        case OpCode::Subtract:
+            simpleInstruction("OP_SUBTRACT");
+            break;
+        case OpCode::Multiply:
+            simpleInstruction("OP_MULTIPLY");
+            break;
+        case OpCode::Divide:
+            simpleInstruction("OP_DIVIDE");
+            break; 
         default:
             std::println("Unknown opcode at idx: {}", idx); 
             break; 
