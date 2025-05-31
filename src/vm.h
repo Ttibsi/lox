@@ -3,6 +3,7 @@
 
 #include <deque>
 #include <functional> 
+#include <string_view> 
  
 #include "chunk.h"
 #include "value.h" 
@@ -23,7 +24,7 @@ struct VM {
     uint8_t ip; 
     std::deque<Value> stack = {}; 
     
-    InterpretResult interpret(Chunk*);
+    InterpretResult interpret(std::string_view);
     InterpretResult run(); 
     void reset_stack(); 
 

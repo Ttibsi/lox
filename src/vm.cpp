@@ -1,11 +1,12 @@
 #include "vm.h"
 #include "debug.h" 
+#include "compiler.h" 
  
 #include <print> 
 
-InterpretResult VM::interpret(Chunk* chunk) {
-    stored_chunk = chunk; 
-    return run();
+InterpretResult VM::interpret(std::string_view source) {
+    compile(source);
+    return InterpretResult::OK;
 } 
 
 InterpretResult VM::run() {
