@@ -2,5 +2,6 @@ lox
 build/
 compile_commands.json
 iris.log 
+src/iris.log 
 .gdb_history 
 .cache/ 
