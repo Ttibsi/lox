@@ -32,3 +32,4 @@ void freeObjects() {
         freeObject(object);
         object = next;
     }
+}
