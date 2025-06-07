@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
 #include "memory.h"
-#include "vm.h"
+#include "vm.h" 
 
 void* reallocate(void* pointer, size_t oldSize, size_t newSize) {
     if (newSize == 0) {
@@ -32,4 +32,3 @@ void freeObjects() {
         freeObject(object);
         object = next;
     }
-}
