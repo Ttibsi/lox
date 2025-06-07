@@ -21,6 +21,8 @@ typedef enum {
   INTERPRET_COMPILE_ERROR,
   INTERPRET_RUNTIME_ERROR
 } InterpretResult;
+
+extern VM vm;
  
 extern VM vm;
  

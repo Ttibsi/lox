@@ -10,14 +10,16 @@
 #define ALLOCATE_OBJ(type, objectType) \
     (type*)allocateObject(sizeof(type), objectType) 
 
+
 static Obj* allocateObject(size_t size, ObjType type) {
     Obj* object = (Obj*)reallocate(NULL, 0, size);
     object->type = type;
 
     object->next = vm.objects;
-    vm.objects = object; 
+    vm.objects = object;
     return object;
-} 
+}
+
 
 static ObjString* allocateString(char* chars, int length, uint32_t hash) {
     ObjString* string = ALLOCATE_OBJ(ObjString, OBJ_STRING);
@@ -26,7 +28,8 @@ static ObjString* allocateString(char* chars, int length, uint32_t hash) {
     string->hash = hash; 
     tableSet(&vm.strings, string, NIL_VAL); 
     return string;
-} 
+}
+
 
 // FNV_1a algorithm for hashing 
 static uint32_t hashString(const char* key, int length) {
@@ -49,7 +52,7 @@ ObjString* takeString(char* chars, int length) {
  
     return allocateString(chars, length, hash);
 }
- 
+
 ObjString* copyString(const char* chars, int length) {
     uint32_t hash = hashString(chars, length);
     ObjString* interned = tableFindString(&vm.strings, chars, length, hash);
@@ -67,4 +70,4 @@ void printObject(Value value) {
             printf("%s", AS_CSTRING(value));
             break;
     }
-} 
+}
