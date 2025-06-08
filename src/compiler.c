@@ -90,6 +90,16 @@ static void consume(TokenType type, const char* message) {
     errorAtCurrent(message);
 }
 
+static bool check(TokenType type) {
+    return parser.current.type == type;
+} 
+
+static bool match(TokenType type) {
+    if (!check(type)) return false;
+    advance();
+    return true;
+}
+ 
 static void emitByte(uint8_t byte) {
     writeChunk(currentChunk(), byte, parser.previous.line);
 }
@@ -255,6 +265,26 @@ static void expression() {
     parsePrecedence(PREC_ASSIGNMENT);
 }
 
+static void printStatement() {
+    expression();
+    consume(TOKEN_SEMICOLON, "Expect ';' after value");
+    emitByte(OP_PRINT);
+}
+ 
+// these are both recursive so need to be forward declared
+static void statement();
+static void declaration();
+ 
+static void statement() {
+    if (match(TOKEN_PRINT)) {
+        printStatement();
+    }
+}
+ 
+static void declaration() {
+    statement();
+}
+ 
 bool compile(const char* source, Chunk* chunk) {
     initScanner(source);
     compilingChunk = chunk;
@@ -263,8 +293,10 @@ bool compile(const char* source, Chunk* chunk) {
     parser.panicMode = false;
 
     advance();
-    expression();
-    consume(TOKEN_EOF, "Expect end of expression"); 
+    while (!match(TOKEN_EOF)) {
+        declaration();
+    }
+ 
     endCompiler();
 
     return !parser.hadError;
